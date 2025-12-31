@@ -2,13 +2,31 @@ export class UserService {
   users: {
     id: number;
     name: string;
-    age: number;
+    email: string;
     gender: string;
     isMarried: boolean;
   }[] = [
-    { id: 1, name: 'John', age: 29, gender: 'male', isMarried: false },
-    { id: 2, name: 'Mark', age: 30, gender: 'male', isMarried: true },
-    { id: 3, name: 'Sarah', age: 20, gender: 'female', isMarried: true },
+    {
+      id: 1,
+      name: 'John',
+      email: 'john@gmail.com',
+      gender: 'male',
+      isMarried: false,
+    },
+    {
+      id: 2,
+      name: 'Mark',
+      email: 'mark@gmail.com',
+      gender: 'male',
+      isMarried: true,
+    },
+    {
+      id: 3,
+      name: 'Sarah',
+      email: 'sarah@gmail.com',
+      gender: 'female',
+      isMarried: true,
+    },
   ];
 
   getAllUsers() {
@@ -22,7 +40,7 @@ export class UserService {
   createUser(user: {
     id: number;
     name: string;
-    age: number;
+    email: string;
     gender: string;
     isMarried: boolean;
   }) {
