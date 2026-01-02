@@ -1,13 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UserService {
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
+  ) {}
+
   users: {
     id: number;
     name: string;
     email: string;
     gender: string;
     isMarried: boolean;
+    password: string;
   }[] = [
     {
       id: 1,
@@ -15,6 +22,7 @@ export class UserService {
       email: 'john@gmail.com',
       gender: 'male',
       isMarried: false,
+      password: 'test1234',
     },
     {
       id: 2,
@@ -22,6 +30,7 @@ export class UserService {
       email: 'mark@gmail.com',
       gender: 'male',
       isMarried: true,
+      password: 'test1234',
     },
     {
       id: 3,
@@ -29,11 +38,15 @@ export class UserService {
       email: 'sarah@gmail.com',
       gender: 'female',
       isMarried: true,
+      password: 'test1234',
     },
   ];
 
   getAllUsers() {
-    return this.users;
+    if (this.authService.isAuthenticated) {
+      return this.users;
+    }
+    return 'You are not logged in!';
   }
 
   getUserById(id: number) {
@@ -46,6 +59,7 @@ export class UserService {
     email: string;
     gender: string;
     isMarried: boolean;
+    password: string;
   }) {
     this.users.push(user);
   }
