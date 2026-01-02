@@ -6,5 +6,5 @@ export class GetUserParamDto {
   @IsBoolean()
   @IsOptional()
   @Type(() => Boolean)
-  isMarried: boolean;
+  isMarried?: boolean;
 }
