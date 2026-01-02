@@ -4,23 +4,26 @@ import {
   DefaultValuePipe,
   Get,
   Param,
+  ParseBoolPipe,
   ParseIntPipe,
   Post,
   Query,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { GetUserParamDto } from './dtos/get-user-param.dto';
 
 //http://localhost:3000/users
 @Controller('users')
 export class UsersController {
-  @Get()
+  @Get('{:isMarried}')
   getUsers(
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Param() param: GetUserParamDto,
   ) {
     const usersService = new UserService();
-    console.log(limit, page);
+    console.log(param);
     return usersService.getAllUsers();
   }
 
