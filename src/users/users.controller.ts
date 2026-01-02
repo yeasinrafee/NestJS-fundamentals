@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
@@ -6,8 +7,10 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './users.service';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 //http://localhost:3000/users
 @Controller('users')
@@ -30,16 +33,9 @@ export class UsersController {
   }
 
   @Post()
-  createUsers() {
-    const user = {
-      id: 3,
-      name: 'Merry',
-      email: 'merry@gmail.com',
-      gender: 'female',
-      isMarried: true,
-    };
-    const usersService = new UserService();
-    usersService.createUser(user);
-    return 'A new user has been created';
+  createUsers(@Body(new ValidationPipe()) user: CreateUserDto) {
+    // const usersService = new UserService();
+    // usersService.createUser(user);
+    return 'A new user with id has been created';
   }
 }
